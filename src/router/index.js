@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import ChatRoom from '@/components/ChatRoom'
+import ChatRoom from '@/views/ChatRoom'
 
 Vue.use(Router)
 
