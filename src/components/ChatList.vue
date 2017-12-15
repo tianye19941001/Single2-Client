@@ -2,7 +2,7 @@
   <div class="chat_list">
     <ul>
     	<li v-for="item in childData" :class= "item.type" >
-    		<span class="head"></span>
+    		<span class="head">{{item.name}}</span>
     		<el-button v-if="item.type == 'msg'">
     			<i class="el-icon-caret-left"></i>
     			{{ item.word }}
@@ -58,13 +58,17 @@ export default {
 	}
 	.head {
 		display: block;
-		background: #E6A23C;
+		background-color: #409EFF;
 		width: 38px;
 		height: 38px;
 		position: absolute;
 		left: 10px;
 		top: 0;
 		border-radius: 38px;
+		overflow: hidden;
+		color: #fff;
+		line-height: 38px;
+		text-align: center;
 	}
 	.self{
 		align-self: flex-end;
@@ -75,6 +79,7 @@ export default {
 		.head {
 			left: auto;
 			right: 10px;
+			background-color: #E6A23C;
 		}
 	}
 	.el-button{

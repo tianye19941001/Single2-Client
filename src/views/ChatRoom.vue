@@ -31,8 +31,13 @@ export default {
   },
   methods: {
     onSocket (socket) {
-      socket.on('connects', function (data) {
-        localStorage.setItem('chatRoomName', data.name)
+      socket.on('connects', (data) => {
+        this.$notify({
+          title: '有人加入啦～',
+          message: data.name + '加入聊天室~',
+          offset: 100,
+          duration: 1000
+        })
       })
       socket.on('message', (data) => {
         if (!data.type) {
