@@ -15,6 +15,7 @@
 <script>
 import ChatList from '../components/ChatList.vue'
 import ChatFoot from '../components/ChatFoot.vue'
+import Api from '../config'
 import io from 'socket.io-client'
 
 export default {
@@ -31,12 +32,13 @@ export default {
   },
   methods: {
     onSocket (socket) {
+      const h = this.$createElement
       socket.on('connects', (data) => {
         this.$notify({
           title: '有人加入啦～',
-          message: data.name + '加入聊天室~',
+          message: h('strong', {style: 'color: #409EFF'}, data.name + '加入聊天室~'),
           offset: 100,
-          duration: 1000
+          duration: 2000
         })
       })
       socket.on('message', (data) => {
@@ -45,8 +47,13 @@ export default {
         }
         this.pushMsg(data)
       })
-      socket.on('disconnect', function (data) {
-        console.log(data)
+      socket.on('disconnect', (data) => {
+        this.$notify({
+          title: '有人退出啦～',
+          message: h('strong', {style: 'color: #E6A23C'}, data.name + '退出聊天室~'),
+          offset: 100,
+          duration: 2000
+        })
       })
     },
     pushMsg (data) {
@@ -54,7 +61,7 @@ export default {
     }
   },
   created () {
-    const socket = io('ws://localhost:3000')
+    const socket = io(Api.chatRoomWS)
 
     this.onSocket(socket)
 

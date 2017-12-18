@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import ChatRoom from '@/views/ChatRoom'
+import Sign from '@/components/SignDialog'
 
 Vue.use(Router)
 
@@ -9,12 +10,17 @@ export default new Router({
     {
       path: '/',
       name: 'ChatRoom',
-      component: ChatRoom
+      component: Sign
     },
     {
       path: '/chatroom',
       name: 'ChatRoom',
       component: ChatRoom
+    },
+    {
+      path: '/signin',
+      name: 'signin',
+      component: Sign
     }
   ]
 })

@@ -18,7 +18,16 @@ export default {
   },
   methods: {
     submitChat () {
+      if (this.msg === '') {
+        this.$notify.error({
+          title: '错误',
+          message: '请输入内容后再发送',
+          duration: 2000
+        })
+        return
+      }
       this.$emit('toSub', this.msg)
+      this.msg = ''
     }
   }
 }
