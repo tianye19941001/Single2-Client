@@ -20,9 +20,10 @@
 </template>
 
 <script>
+  import 'whatwg-fetch'
   export default {
     data () {
-      var validatePass = (rule, value, callback) => {
+      const validatePass = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入密码'))
         } else {
@@ -32,7 +33,7 @@
           callback()
         }
       }
-      var validatePass2 = (rule, value, callback) => {
+      const validatePass2 = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请再次输入密码'))
         } else if (value !== this.ruleForm2.pass) {
@@ -64,16 +65,25 @@
       submitForm (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!')
-          } else {
-            console.log('error submit!!')
-            return false
+            fetch('http://172.16.118.200:3000/api/users/registerUser', {
+              method: 'POST',
+              body: JSON.stringify(this.ruleForm2)
+            })
           }
         })
       },
       resetForm (formName) {
         this.$refs[formName].resetFields()
       }
+    },
+    created () {
+      fetch('http://172.16.118.200:3000/api/users/getUser?id=1').then(function (response) {
+        return response.json()
+      }).then(function (json) {
+        console.log('parsed json', json.data)
+      }).catch(function (ex) {
+        console.log('parsing failed', ex)
+      })
     }
   }
 </script>
