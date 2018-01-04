@@ -9,18 +9,21 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'ChatRoom',
-      component: Sign
+      name: 'signin',
+      component: Sign,
+      props: true
     },
     {
       path: '/chatroom',
       name: 'ChatRoom',
-      component: ChatRoom
+      component: ChatRoom,
+      props: true
     },
     {
       path: '/signin',
       name: 'signin',
-      component: Sign
+      component: Sign,
+      props: true
     }
   ]
 })

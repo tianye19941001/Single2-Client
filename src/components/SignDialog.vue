@@ -62,7 +62,8 @@
           name: [
             { required: true, trigger: 'blur' }
           ]
-        }
+        },
+        Player: false
       }
     },
     methods: {
@@ -75,7 +76,8 @@
             }).then((res) => {
               res.json().then((data) => {
                 const result = data.data
-                result.registeruser ? this.alertSuccess('注册成功', '注册成功', this.goChat) : this.alertFail('注册失败','你的用户名已被使用','warning', this.resetForm)
+                this.Player = result.user
+                result.registerUser ? this.alertSuccess('注册成功', '注册成功', this.goChat) : this.alertFail('注册失败', '你的用户名已被使用', 'warning', this.resetForm)
               })
             }).catch(function (ex) {
               console.log('parsing failed', ex)
@@ -87,10 +89,10 @@
         formName = formName && 'ruleForm2'
         this.$refs[formName].resetFields()
       },
-      goChat (){
-        this.$router.push({ path: '/chatroom' })
+      goChat () {
+        this.$router.push({name: 'ChatRoom', params: { player: this.Player }})
       },
-      alertSuccess (tit, msg, cb){
+      alertSuccess (tit, msg, cb) {
         this.$notify({
           title: tit,
           message: msg,
@@ -99,7 +101,7 @@
           onClose: cb
         })
       },
-      alertFail (tit, msg, cb){
+      alertFail (tit, msg, cb) {
         this.$notify.error({
           title: tit,
           message: msg,

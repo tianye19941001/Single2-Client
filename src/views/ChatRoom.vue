@@ -61,9 +61,22 @@ export default {
     }
   },
   created () {
+
+    fetch('http://172.16.118.200:3000/api/users/getUser').then((res) => {
+        res.json().then((data) => {
+          const result = data.data
+          console.log(result)
+        })
+      }).catch(function (ex) {
+        console.log('parsing failed', ex)
+      })
     const socket = io(Api.chatRoomWS)
 
     this.onSocket(socket)
+
+    if (this.$route.params.player) {
+      socket.emit('changeName', this.$route.params.player)
+    }
 
     this.submsg = (str) => {
       socket.emit('message', str)
