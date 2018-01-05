@@ -16,8 +16,9 @@
 		  </el-form-item>
 		</el-form>
     <div class="pt100">
-      <router-link to="/chatroom">
-        <el-button type="danger">聊天室入口</el-button>
+      <el-input class="ty_input_name" v-model="playerName" placeholder="聊天室昵称"></el-input>
+      <router-link :to="{name: 'ChatRoom', params: {player: playerName}}" >
+        <el-button type="danger">进入聊天室</el-button>
       </router-link>
     </div>
 	</div>
@@ -52,6 +53,7 @@
           checkPass: '',
           name: ''
         },
+        playerName: '',
         rules2: {
           password: [
             { required: true, validator: validatePass, trigger: 'blur' }
@@ -119,5 +121,8 @@
 	}
   .pt100{
     padding-top: 100px;
+  }
+  .ty_input_name{
+    width: 50%;
   }
 </style>

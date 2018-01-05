@@ -23,7 +23,8 @@ export default {
   data () {
     return {
       input5: 'Come Baby',
-      allList: []
+      allList: [],
+      chatRoomName: 'freeChat'
     }
   },
   components: {
@@ -58,25 +59,33 @@ export default {
     },
     pushMsg (data) {
       this.allList.push(data)
+      this.localStore()
+    },
+    localStore () {
+      const roomName = this.chatRoomName
+      const oldData = JSON.parse(localStorage.getItem(roomName) && '[]')
+      console.log(localStorage.getItem(roomName))
+      let newData = this.allList
+
+      if (oldData) {
+        newData = oldData.concat(newData)
+      }
+
+      localStorage.setItem(roomName, JSON.stringify(newData))
     }
   },
   created () {
-
-    fetch('http://172.16.118.200:3000/api/users/getUser').then((res) => {
-        res.json().then((data) => {
-          const result = data.data
-          console.log(result)
-        })
-      }).catch(function (ex) {
-        console.log('parsing failed', ex)
-      })
-    const socket = io(Api.chatRoomWS)
+    // fetch('http://172.16.118.200:3000/api/users/getUser').then((res) => {
+    //     res.json().then((data) => {
+    //       const result = data.data
+    //       console.log(result)
+    //     })
+    //   }).catch(function (ex) {
+    //     console.log('parsing failed', ex)
+    //   })
+    const socket = io(Api.chatRoomWS, {query: {player: this.$route.params.player}})
 
     this.onSocket(socket)
-
-    if (this.$route.params.player) {
-      socket.emit('changeName', this.$route.params.player)
-    }
 
     this.submsg = (str) => {
       socket.emit('message', str)
