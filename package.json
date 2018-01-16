@@ -5,7 +5,7 @@
   "author": "yuanye",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 172.16.118.200",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 172.16.119.217",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",

@@ -72,7 +72,7 @@
       submitForm (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            fetch('http://172.16.118.200:3000/api/users/registerUser', {
+            fetch('http://172.16.119.217:3000/api/users/registerUser', {
               method: 'POST',
               body: JSON.stringify(this.ruleForm2)
             }).then((res) => {
@@ -80,6 +80,10 @@
                 const result = data.data
                 this.Player = result.user
                 result.registerUser ? this.alertSuccess('注册成功', '注册成功', this.goChat) : this.alertFail('注册失败', '你的用户名已被使用', 'warning', this.resetForm)
+
+                fetch('http://172.16.119.217:3000/api/users/getUser').then((res) => {
+                  alert(111)
+                })
               })
             }).catch(function (ex) {
               console.log('parsing failed', ex)
